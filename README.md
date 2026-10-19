@@ -1,31 +1,90 @@
 # imagefv-extractor
+![PyPI - Version](https://img.shields.io/pypi/v/imagefv-extractor?logo=python&logoColor=white) ![PyPI - Downloads](https://img.shields.io/pypi/dm/imagefv-extractor?logo=python&logoColor=white) ![PyPI - Typing](https://img.shields.io/pypi/types/imagefv-extractor?logo=python&logoColor=white)
+
 Extract bootloader/charging pictures from `imagefv` blobs
 
-## How to use:
-1. Install python requirements
+---
+
+## Install
 ```shell
+# With PyPi (recommended)
+pip install fastboot_oem_extractor
+```
+
+```shell
+# When running from source/clone
 pip install -r requirements.txt
 ```
 
-2. Prepare your `imagefv` blob from the internet, or by pulling it from the device via `adb`
-3. Run `extractor.py` against the blob:
-```shell
-python ./extractor.py ./imagefv.elf
-```
+---
 
-## Usage:
+## Using as a CLI tool:
 ```
 usage: extractor.py [-h] [-o OUTPUT] [-v] input [input ...]
 
 Extract bootloader/charging pictures from imagefv blobs
 
 positional arguments:
-  input                Input file to process
+  input                Input file(s) to process
 
 options:
   -h, --help           show this help message and exit
   -o, --output OUTPUT  Output directory (default: extracted_images)
   -v, --verbose        Enable verbose logging (default: False)
+```
+
+1. Prepare an `imagefv` blob from firmware or pull it from a device via `adb`, then run:
+2. Run the CLI against the image
+
+```shell
+# PyPi
+python -m imagefv_extractor ./imagefv.bin
+```
+
+```shell
+# Source/clone
+python ./extractor.py ./imagefv.bin
+```
+
+---
+
+## Using as a Python library
+
+This project can also be used as a library for other tools that want to integrate this.
+There is one public function:
+
+```python
+extract_images(firmware_file, output_dir="extracted_images") -> dict[str, str]
+```
+
+- `firmware_file` (`str | pathlib.Path`): Path to the imagefv firmware image.
+- `output_dir` (`str | pathlib.Path`): Directory where extracted files will be written. Defaults to `"extracted_images"`.
+- **Returns:**
+    - A mapping of extracted image labels to their output paths.
+    - An empty mapping if the input is unrecognized or no images are extracted.
+- **Raises:** `OSError` if the output directory cannot be created.
+
+**Quick example:**
+```python
+# from pathlib import Path
+from imagefv_extractor import extract_images
+
+# extracted = extract_images(
+#     Path("./imagefv.elf"),
+#     output_dir=Path("./extracted_images"),
+# )
+
+extracted = extract_images(
+    "./imagefv.elf",
+    output_dir="./extracted_images",
+)
+
+for label, path in extracted.items():
+    print(f"{label}: {path}")
+    # Example output:
+    # logo.img_raw: extracted_images/logo.img/logo.img
+    # logo.img_archive_0: extracted_images/logo.img/images/archive_0000.bmp
+    # ...
 ```
 
 ## How it works:

@@ -1,10 +1,16 @@
-volume*/
-extracted_images/
-out/
+*
 
-imagefv.*
-*.img
-*.bin
-*.bmp
-*.elf
-*.fv
+!*.py
+!.*
+!.*/**
+
+!src/
+!src/**
+!LICENSE
+!requirements.txt
+!README.md
+!CHANGELOG.md
+!pyproject.toml
+
+src/**/__pycache__/
+src/**/__pycache__/**
