@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "imagefv-extractor"
-version = "1.0.0"
+version = "1.0.1"
 description = "Extract bootloader and charging images from imagefv firmware blobs"
 authors = [{ name = "chkndrp", email = "chkndrp@gmail.com" }]
 keywords = [
