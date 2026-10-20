@@ -64,7 +64,7 @@ extract_images(firmware_file, output_dir="extracted_images") -> dict[str, str]
     - An empty mapping if the input is unrecognized or no images are extracted.
 - **Raises:** `OSError` if the output directory cannot be created.
 
-**Quick example:**
+#### **Quick example:**
 ```python
 # from pathlib import Path
 from imagefv_extractor import extract_images
