@@ -8,7 +8,7 @@ Extract bootloader/charging pictures from `imagefv` blobs
 ## Install
 ```shell
 # With PyPi (recommended)
-pip install fastboot_oem_extractor
+pip install imagefv_extractor
 ```
 
 ```shell
