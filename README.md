@@ -33,7 +33,7 @@ options:
   -v, --verbose        Enable verbose logging (default: False)
 ```
 
-1. Prepare an `imagefv` blob from firmware or pull it from a device via `adb`, then run:
+1. Prepare an `imagefv` image from the internet, or pull it from a device via `adb`
 2. Run the CLI against the image
 
 ```shell
@@ -87,13 +87,7 @@ for label, path in extracted.items():
     # ...
 ```
 
-## How it works:
-1. The script scans the input file for `UEFI` structures using the `uefi-firmware` package
-2. If it finds them, it dumps all files/sections to a temporary directory
-3. Then it identifies the dumped files for known types (defined in `magic_map` struct) and organizes them
-4. And also if found, any files containing GZip archives (most commonly `logo.img`) are extracted
-
-## Is it possible to repackage it, and create custom splashes?
+## Is it possible to repackage `imagefv`, and create custom splashes?
 During investigation, i have noticed the `imagefv` blob contains some CoT certificates, 
 so it is absolutely possible that this partition is verified during the `XBL` phase,
 causing the device not to boot if it is altered.
@@ -109,9 +103,9 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 6297377       0x601721        Certificate in DER format (x509 v3), header length: 4, sequence length: 720
 ```
 
-I also couldn't find any open-source (re)packaging tools for it either, so one would need to be created. However i'm not risking a hard-brick.
+I also couldn't find any open-source (re-)packaging tools for it either, so one would need to be created. However i'm not risking a hard-brick.
 
-Here are some references to it being loaded on `xiaomi-amethyst` during `ABL` phase:
+Here are some references to `logo.img` (from `imagefv`) being read on `xiaomi-amethyst` during `ABL` phase:
 ```
 GetAdjustLogoIndexpDisplayInfo->uDisplayWidth 1220: 2712, country_info = 1, uLogoIndex = 0, realLogoIndex = 128!
 Display_Utils_RenderSplashScreen: load imagefv name is: logo.img
