@@ -9,7 +9,8 @@ description = "Extract bootloader and charging images from imagefv firmware blob
 authors = [{ name = "chkndrp", email = "chkndrp@gmail.com" }]
 keywords = [
     "android", "firmware", "imagefv", "qcom", "qualcomm",
-    "uefi", "extractor", "bootloader",
+    "uefi", "extractor", "bootloader", "charging", "research", 
+    "cli", "library", "splash", "logo"
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
