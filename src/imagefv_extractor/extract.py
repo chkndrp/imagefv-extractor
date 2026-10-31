@@ -151,6 +151,19 @@ def _extract_file_label(parent_dir: Path) -> str | None:
     return None
 
 
+def _is_file_label_safe(file_label: str) -> bool:
+    """Return whether a firmware-provided label can be used as a filename"""
+
+    return (
+        file_label not in {"", ".", ".."}
+        and "\x00" not in file_label
+        and "/" not in file_label
+        and "\\" not in file_label
+        and ":" not in file_label
+        and Path(file_label).name == file_label
+    )
+
+
 def _process_large_binary_section(file_label: str, section_data: bytes,
         output_subdir: Path, extracted_files: dict[str, str]) -> int:
     """Process large binary sections with multiple gzip archives"""
@@ -260,6 +273,10 @@ def _process_raw_files(dump_dir: Path, output_dir: Path, extracted_files: dict[s
 
             if not file_label or len(file_label) <= 1:
                 file_label = parent_dir[5:].lower()
+
+            if not _is_file_label_safe(file_label):
+                logger.warning("Skipping unsafe firmware file label: %r", file_label)
+                continue
 
             with open(raw_file, "rb") as raw_data_file:
                 section_data = raw_data_file.read()
