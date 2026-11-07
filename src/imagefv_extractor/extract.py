@@ -156,6 +156,7 @@ def _is_file_label_safe(file_label: str) -> bool:
 
     return (
         file_label not in {"", ".", ".."}
+        and not file_label.endswith((".", " "))
         and "\x00" not in file_label
         and "/" not in file_label
         and "\\" not in file_label
