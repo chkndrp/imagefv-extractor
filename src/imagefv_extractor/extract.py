@@ -297,6 +297,16 @@ def _process_raw_files(dump_dir: Path, output_dir: Path, extracted_files: dict[s
             logger.warning("Error processing %s: %s", raw_file, e)
 
 
+def _validate_input(firmware_file: str | Path, output_dir: str | Path) -> None:
+    """Validate pulbic function input parameters"""
+
+    if not isinstance(firmware_file, (str, Path)):
+        raise ValueError("firmware_file must be a string or pathlib.Path")
+
+    if not isinstance(output_dir, (str, Path)):
+        raise ValueError("output_dir must be a string or pathlib.Path")
+
+
 def extract_images(firmware_file: str | Path, output_dir: str | Path = "extracted_images") -> dict[str, str]:
     """
     Extract images from a firmware file and return their labels and paths
@@ -310,13 +320,17 @@ def extract_images(firmware_file: str | Path, output_dir: str | Path = "extracte
     :returns: A mapping from extracted image labels to output paths. The mapping is
         empty when no images were extracted
     :rtype: dict[str, str]
+
     :raises OSError: If the output directory cannot be created
+    :raises ValueError: if `firmware_file` or `output_dir` is not `str` or `pathlib.Path`.
     """
 
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     extracted_files: dict[str, str] = {}
     firmware_file = Path(firmware_file)
+
+    _validate_input(firmware_file, output_dir)
 
     if not firmware_file.exists():
         logger.error("File not found: %s", firmware_file)

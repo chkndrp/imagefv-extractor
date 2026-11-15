@@ -62,7 +62,9 @@ extract_images(firmware_file, output_dir="extracted_images") -> dict[str, str]
 - **Returns:**
     - A mapping of extracted image labels to their output paths.
     - An empty mapping if the input is unrecognized or no images are extracted.
-- **Raises:** `OSError` if the output directory cannot be created.
+- **Raises:** 
+    - `OSError` if the output directory cannot be created.
+    - `ValueError` if `firmware_file` or `output_dir` is not `str` or `pathlib.Path`.
 
 #### **Quick example:**
 ```python
