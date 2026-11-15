@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""Entry point for imagefv-extractor's CLI"""
+
 # Extract bootloader/charging pictures from imagefv blobs
 # Copyright (C) 2026 chkndrp
 #
