@@ -20,17 +20,17 @@ pip install -r requirements.txt
 
 ## Using as a CLI tool:
 ```
-usage: extractor.py [-h] [-o OUTPUT] [-v] input [input ...]
+usage: extractor.py [-h] [-o DIR] [-v] input [input ...]
 
 Extract bootloader/charging pictures from imagefv blobs
 
 positional arguments:
-  input                Input file(s) to process
+  input             Input file(s) to process
 
 options:
-  -h, --help           show this help message and exit
-  -o, --output OUTPUT  Output directory (default: extracted_images)
-  -v, --verbose        Enable verbose logging (default: False)
+  -h, --help        show this help message and exit
+  -o, --output DIR  Output directory (default: extracted_images)
+  -v, --verbose     Enable verbose logging (default: False)
 ```
 
 1. Prepare an `imagefv` image from the internet, or pull it from a device via `adb`

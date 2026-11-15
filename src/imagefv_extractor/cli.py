@@ -48,12 +48,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument(
         "input",
         nargs="+",
-        help="Input file(s) to process"
+        help="Input file(s) to process",
+        type=str,
     )
     parser.add_argument(
         "-o", "--output",
         default="extracted_images",
         help="Output directory",
+        metavar="DIR",
+        type=str,
     )
     parser.add_argument(
         "-v", "--verbose",
